@@ -48,7 +48,7 @@ type Animal interface {
 }
 ```
 
-Затем мы создаем переменную animal интерфейсного типа Animal:
+Затем создадим переменную animal интерфейсного типа Animal:
 
 ``` go
 var animal Animal
