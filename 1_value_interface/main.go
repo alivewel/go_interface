@@ -16,6 +16,11 @@ func (t *T) M() {
 	fmt.Println(t.S)
 }
 
+// Интерфейс J с встроенным интерфейсом I
+type J interface {
+	I
+}
+
 func main() {
 	var i I
 
