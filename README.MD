@@ -421,7 +421,6 @@ func main() {
 
 - **`some_service/`**: Главная директория сервиса.
   - **`handlers/`**: Папка для хэндлеров (обработчиков).
-    - **`createuser/`**: Подпапка для создания пользователей.
     - **`userinfo/`**: Подпапка для работы с информацией о пользователях.
   - **`lib/`**: Библиотеки и вспомогательные модули.
   - **`services/`**: Логика и бизнес-слой сервиса.
@@ -461,23 +460,59 @@ type Storage interface {
 Мы используем данный интерфейс в слой `handlers`. В частности, в нем у нас есть функция `New`, которая принимает интерфейс `Storage`, в котором множество методов.
 
 ```go
+package userinfo
+
+import (
+	"context"
+	"fmt"
+	"service/handlers"
+	"service/storage/users"
+)
+
 func New(userRepo users.Storage) handlers.Handler {
-    return func(ctx context.Context) {
-        // Получение UID из запроса
-        uid := 1
-        user, err := userRepo.User(uid)
-        if err != nil {
-            // Обработка ошибки
-        }
-    }
+	return func(ctx context.Context) error {
+		// Получение UID из запроса
+		uid := 1
+		user, err := userRepo.User(uid)
+		if err != nil {
+			// Обработка ошибки
+			return fmt.Errorf("failed to get user: %w", err)
+		}
+		fmt.Printf("User: %+v\n", user)
+		return nil
+	}
 }
+
 ```
 
 Чтобы не тащить за собой огромный интерфейс с кучей методов, мы можем описать интерфейс в месте его использования, прямо в этом хендлере. В этом хендлере мы используем один единственный метод `User()`. Это значит, что мы можем создать здесь интерфейс, в котором будет необходимый метод. Создадим интерфейс `UserProvider`, в котором будет метод `User()`.
 
 ```go
+package userinfo
+
+import (
+	"context"
+	"fmt"
+	"service/handlers"
+	"service/storage/users"
+)
+
 type UserProvider interface {
-    User(int) users.User
+    User(int) (users.User, error)
+}
+
+func New(userProvider UserProvider) handlers.Handler {
+	return func(ctx context.Context) error {
+		// Получение UID из запроса
+		uid := 1
+		user, err := userProvider.User(uid)
+		if err != nil {
+			// Обработка ошибки
+			return fmt.Errorf("failed to get user: %w", err)
+		}
+		fmt.Printf("User: %+v\n", user)
+		return nil
+	}
 }
 ```
 
