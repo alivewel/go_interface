@@ -20,11 +20,11 @@ func (i Binary) Get() uint64 {
 }
 
 func main() {
-	var num Binary = 200
-	fmt.Printf("Value %v, type %T\n", num, num) // Выведем значение и тип данной структуры
+	var b Binary = 200
+	fmt.Printf("Value %v, type %T\n", b, b) // Выведем значение и тип данной структуры
 	// Получим Value 11001000, type main.Binary)
-	fmt.Println(ToString(num)) // Выводит: "11001000"
-	fmt.Println(num)           // Выводит: "11001000"
+	fmt.Println(ToString(b)) // Выводит: "11001000"
+	fmt.Println(b)           // Выводит: "11001000"
 }
 
 // https://research.swtch.com/interfaces
