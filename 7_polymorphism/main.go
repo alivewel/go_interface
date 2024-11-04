@@ -30,8 +30,8 @@ func MakeAnimalSpeak(a Animal) {
 }
 
 func main() {
-	dog := Dog{Name: "Бобик"}
-	cat := Cat{Name: "Мурка"}
+	dog := Dog{Name: "Шайтан"}
+	cat := Cat{Name: "Тайсон"}
 
 	// Вызов функции MakeAnimalSpeak для каждого животного
 	MakeAnimalSpeak(dog)
