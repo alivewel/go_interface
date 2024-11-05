@@ -11,7 +11,7 @@
 
 Эта статья поможет вам лучше понять, как работают интерфейсы в Go и как их правильно использовать в вашем коде.
 
-![homelander](images/homelander2.jpg)
+![homelander](images/homelander3.png)
 
 <!-- ![game](images/game2.png) -->
 
